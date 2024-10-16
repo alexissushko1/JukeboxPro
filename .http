@@ -1,0 +1,59 @@
+@host = http://localhost:3000
+
+### Post registers a new user
+
+POST {{host}}/register
+Content-Type: application/json
+
+{
+  "username": "a@c.com",
+  "password": "123"
+}
+
+### Post logs in a user
+# @name login
+
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "a@b.com",
+  "password": "123"
+}
+
+### Get all playlists
+@token = {{login.response.body.token}}
+GET {{host}}/playlists
+Authorization: Bearer {{token}}
+
+### Post a playlist
+
+POST {{host}}/playlists
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Playlist",
+  "description": "Playlist description",
+  "trackIds": [2,3,4]
+}
+
+### Get a specific playlist with an id
+
+GET {{host}}/playlists/2
+Authorization: Bearer {{token}}
+
+### Get all tracks
+
+GET {{host}}/tracks
+
+### Get a specific track with an id
+
+GET {{host}}/tracks/3
+
+### Get specific track as a user
+
+GET {{host}}/tracks/3
+Authorization: Bearer {{token}}
+
+
